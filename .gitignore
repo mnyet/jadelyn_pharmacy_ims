@@ -2,9 +2,6 @@
 # You can remove the above line if you want to edit and maintain this file yourself.
 .env
 .env.development
-/writable
-/writable/*
-/writable/**/*
 
 /**/*.example
 /.dbimageBuild
@@ -36,3 +33,5 @@
 /traefik/certs/jadelyn-pharmacy.key
 /xhprof/xhprof_prepend.php
 /**/README.*
+
+/writable/
