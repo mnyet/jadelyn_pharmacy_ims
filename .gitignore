@@ -1,0 +1,35 @@
+#ddev-generated: Automatically generated ddev .gitignore.
+# You can remove the above line if you want to edit and maintain this file yourself.
+.env
+.env.development
+
+/**/*.example
+/.dbimageBuild
+/.ddev-docker-*.yaml
+/.*downloads
+/.homeadditions
+/.importdb*
+/.sshimageBuild
+/.webimageBuild
+/apache/apache-site.conf
+/commands/.gitattributes
+/config.local.y*ml
+/config.*.local.y*ml
+/db_snapshots
+/mutagen/mutagen.yml
+/mutagen/.start-synced
+/nginx_full/nginx-site.conf
+/postgres/postgresql.conf
+/providers/acquia.yaml
+/providers/lagoon.yaml
+/providers/pantheon.yaml
+/providers/platform.yaml
+/providers/upsun.yaml
+/sequelpro.spf
+/share-providers/cloudflared.sh
+/share-providers/ngrok.sh
+/traefik/config/jadelyn-pharmacy.yaml
+/traefik/certs/jadelyn-pharmacy.crt
+/traefik/certs/jadelyn-pharmacy.key
+/xhprof/xhprof_prepend.php
+/**/README.*
