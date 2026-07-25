@@ -3,6 +3,8 @@
 .env
 .env.development
 /writable
+/writable/*
+/writable/**/*
 
 /**/*.example
 /.dbimageBuild
