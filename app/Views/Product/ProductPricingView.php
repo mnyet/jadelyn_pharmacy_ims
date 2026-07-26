@@ -25,6 +25,7 @@
                         <tr>
                             <th>Generic Name</th>
                             <th>Brand</th>
+                            <th>Product Type</th>
                             <th>Unit Price</th>
                             <th>Selling Price</th>
                             <th>Action</th>
@@ -65,6 +66,17 @@
                                     <?php if(!empty($brandNames)): ?>
                                         <?php foreach ($brandNames as $brand): ?>
                                             <option value="<?= $brand->id ?>"><?= $brand->name ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Product Type</label>
+                                <select name="product_type_id" id="modal_product_type_id" required>
+                                    <option value="" selected disabled>Select Type...</option>
+                                    <?php if(!empty($productTypes)): ?>
+                                        <?php foreach ($productTypes as $type): ?>
+                                            <option value="<?= $type->id ?>"><?= $type->name ?></option>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </select>

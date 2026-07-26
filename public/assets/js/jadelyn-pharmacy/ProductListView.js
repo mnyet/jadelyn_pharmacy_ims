@@ -1,18 +1,13 @@
+// Global Variables
+const select2Elements = '#modal_brand_id, #modal_product_type_id, #modal_generic_name_id, #modal_search_product_combination';
+
 $(document).ready(function(){
     console.log('Product List View JS Loaded.');
 
     loadProductListDatatable();
 
-    /*
-    Swal.fire({
-        title: 'Welcome to the Product List!',
-        text: 'Here you can manage your products. Use the search bar to find specific items.',
-        icon: 'info',
-        confirmButtonText: 'Got it!'
-    }); */
-
     // Handling select2 (Adds searchbar in the select options)
-    $('#modal_brand_id, #modal_product_type_id, #modal_generic_name_id').select2({
+    $(select2Elements).select2({
         theme: "bootstrap-5",
         placeholder: "Select Type...",
         width: '100%',
@@ -37,19 +32,37 @@ $('#btnAddProduct').click(function() {
     $('#productForm')[0].reset(); 
     $('#productIdModal').val('');
 
-    $('#modal_brand_id, #modal_product_type_id, #modal_generic_name_id').select2('val', '');
-    $('#modal_brand_id, #modal_product_type_id, #modal_generic_name_id').trigger('change');
-    $('#modal_brand_id, #modal_product_type_id, #modal_generic_name_id').prop('disabled', false); // Enable the select2 fields
+    $(select2Elements).select2('val', '');
+    $(select2Elements).trigger('change');
+    $(select2Elements).prop('disabled', true); // Enable the select2 fields
 
+    $('#productSearchContainer').removeClass('d-none'); // Show the search container - Only use in Add Product
+    $('#modal_search_product_combination').val('').prop('disabled', false); // Enable the search field - Only use in Add Product
     $('#productModalLabel').text('Add New Product');
     $('#btnSaveProduct').text('Save Product').val(1);
     $('#productModal').modal('show');
+});
+
+// On change of product combination selection, fetch and populate the product details.
+$('#modal_search_product_combination').on('change', function(e) {
+    // Get the selected option using the event
+    const selectedOption = e.target.options[e.target.selectedIndex];
+
+    const selectedGenericNameId = $(selectedOption).data('generic-name-id');
+    const selectedBrandId = $(selectedOption).data('brand-id');
+    const selectedProductTypeId = $(selectedOption).data('product-type-id');
+
+    $('#modal_generic_name_id').val(selectedGenericNameId).trigger('change');
+    $('#modal_brand_id').val(selectedBrandId).trigger('change');
+    $('#modal_product_type_id').val(selectedProductTypeId).trigger('change');
 });
 
 // Edit Product
 $('#productListTable').on('click', '.btn-edit', function() {
     const productId = $(this).data('id');
 
+    $('#productSearchContainer').addClass('d-none'); // Hide the search container - Only use in Add Product
+    $('#modal_search_product_combination').val('').prop('disabled', true); // Disable the search field - Only use in Add Product
     $('#productForm')[0].reset(); 
     $('#productIdModal').val('');
     $('#productModalLabel').text('Edit Product');
@@ -136,13 +149,13 @@ function loadProductListDatatable() {
             topEnd: null
         },
         columns: [
-            { data: 'quantity', name: 'quantity' },
-            { data: 'purchase_date', name: 'purchase_date' },
-            { data: 'lot_number', name: 'lot_number' },
-            { data: 'expiry_date', name: 'expiry_date' },
-            { data: 'brand_name', name: 'brand_name' },
             { data: 'generic_name', name: 'generic_name' },
+            { data: 'brand_name', name: 'brand_name' },
             { data: 'product_type', name: 'product_type' },
+            { data: 'purchase_date', name: 'purchase_date' },
+            { data: 'expiry_date', name: 'expiry_date' },
+            { data: 'lot_number', name: 'lot_number' },
+            { data: 'quantity', name: 'quantity' },
             {
                 data: 'product_id',
                 name: 'product_id',
@@ -151,6 +164,10 @@ function loadProductListDatatable() {
                             <button class="btn btn-sm btn-danger" onclick="deleteProduct(${data})">Delete</button>`; 
                 }
             }
+        ],
+        order: [
+            [0, 'asc'],
+            [1, 'asc']
         ]
     });
 }

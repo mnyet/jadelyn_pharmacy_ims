@@ -13,7 +13,7 @@
     <link href="<?= base_url('assets/dist/sweetalert2.min.css') ?>" rel="stylesheet" />
     <link rel="stylesheet" href="<?= base_url('assets/css/all.min.css') ?>" />
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <?= $this->include('layout/navbar') ?>
 
     <script src="<?= base_url('assets/js/jquery-4.0.0.min.js') ?>"></script>
@@ -23,7 +23,10 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/select2-bootstrap-5-theme.min.css') ?>" />
     <script src="<?= base_url('assets/js/select2.min.js') ?>"></script>
 
-    <?= $this->renderSection('content') ?>
+    <div class="flex-grow-1">
+        <?= $this->renderSection('content') ?>
+    </div>
+    
     <?= $this->include('layout/footer') ?>
 </body>
 </html>
