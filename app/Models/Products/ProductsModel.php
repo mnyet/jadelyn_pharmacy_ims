@@ -105,6 +105,7 @@ class ProductsModel extends BaseModel
         $checkBuilder->select('1');
         $checkBuilder->where('brand_id', $params['brand_id']);
         $checkBuilder->where('generic_name_id', $params['generic_name_id']);
+        $checkBuilder->where('product_type_id', $params['product_type_id']);
         $checkBuilder->where('active', 1);
         
         $exists = $checkBuilder->get()->getRow();
@@ -241,9 +242,11 @@ class ProductsModel extends BaseModel
                             b.name AS brand_name,
                             c.name AS generic_name,
                             a.unit_price,
-                            a.selling_price');
+                            a.selling_price,
+                            d.name AS product_type');
         $builder->join('jadelyn_pharmacy_brand_name b', 'a.brand_id = b.id', 'inner');
         $builder->join('jadelyn_pharmacy_generic_name c', 'a.generic_name_id = c.id', 'inner');
+        $builder->join('jadelyn_pharmacy_product_types d', 'a.product_type_id = d.id', 'inner');
         $builder->orderBy($orderColumnName, $orderDirection);
 
         if (!empty($params['searchType'])) {
@@ -273,6 +276,7 @@ class ProductsModel extends BaseModel
         $builder->where('a.active', 1);
         $builder->where('b.active', 1);
         $builder->where('c.active', 1);
+        $builder->where('d.active', 1);
 
         return DataTable::of($builder)->toJson(true);
     }
@@ -296,7 +300,8 @@ class ProductsModel extends BaseModel
                             a.brand_id,
                             a.generic_name_id,
                             a.unit_price,
-                            a.selling_price');
+                            a.selling_price,
+                            a.product_type_id');
         $builder->join('jadelyn_pharmacy_brand_name b', 'a.brand_id = b.id', 'inner');
         $builder->join('jadelyn_pharmacy_generic_name c', 'a.generic_name_id = c.id', 'inner');
         $builder->where('a.id', $productPriceId);
@@ -328,6 +333,7 @@ class ProductsModel extends BaseModel
         $checkBuilder->select('unit_price');
         $checkBuilder->where('brand_id', $params['brand_id']);
         $checkBuilder->where('generic_name_id', $params['generic_name_id']);
+        $checkBuilder->where('product_type_id', $params['product_type_id']);
         
         $exists = $checkBuilder->get()->getRow();
 
@@ -345,7 +351,8 @@ class ProductsModel extends BaseModel
             'brand_id'        => $params['brand_id'],
             'generic_name_id' => $params['generic_name_id'],
             'unit_price'      => $params['unit_price'],
-            'selling_price'   => $params['selling_price']
+            'selling_price'   => $params['selling_price'],
+            'product_type_id'   => $params['product_type_id']
         ]);
 
         $this->db->transComplete();
@@ -382,7 +389,8 @@ class ProductsModel extends BaseModel
             'brand_id'        => $params['brand_id'],
             'generic_name_id' => $params['generic_name_id'],
             'unit_price'      => $params['unit_price'],
-            'selling_price'   => $params['selling_price']
+            'selling_price'   => $params['selling_price'],
+            'product_type_id'   => $params['product_type_id']
         ]);
 
         $this->db->transComplete();

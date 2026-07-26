@@ -25,13 +25,13 @@
                 <table id="productListTable" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Qty</th>
-                            <th>Purchase Date</th>
-                            <th>Lot Number</th>
-                            <th>Expiry Date</th>
                             <th>Brand Name</th>
                             <th>Generic Name</th>
                             <th>Product Type</th>
+                            <th>Purchase Date</th>
+                            <th>Lot Number</th>
+                            <th>Expiry Date</th>
+                            <th>Qty</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -52,6 +52,23 @@
                     <div class="modal-body">
                         <input type="hidden" id="productIdModal" name="id">
                         <div class="row g-3">
+                            <div class="col-12 d-none" id="productSearchContainer">
+                                <label class="form-label fw-bold">Search Product</label>
+                                <select name="search_product_combination" id="modal_search_product_combination" class="form-select" required>
+                                    <option value="" selected disabled>Search Product...</option>
+                                    <?php if(!empty($productCombinations)): ?>
+                                        <?php foreach ($productCombinations as $productCombination): ?>
+                                            <option
+                                                data-generic-name-id="<?= $productCombination->generic_name_id ?>"
+                                                data-brand-id="<?= $productCombination->brand_id ?>"
+                                                data-product-type-id="<?= $productCombination->product_type_id ?>"
+                                            >
+                                                <?= $productCombination->product_name ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Brand</label>
                                 <select name="brand_id" id="modal_brand_id" class="form-select" required>

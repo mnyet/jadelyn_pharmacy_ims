@@ -20,6 +20,7 @@ class ProductController extends BaseController
             'genericNames' => $response['genericName'] ?? [],
             'productTypes' => $response['productType'] ?? [],
             'brandNames' => $response['brandName'] ?? [],
+            'productCombinations' => $response['productCombination'] ?? [],
         ];
 
         return view('Product/ProductListView', $data);

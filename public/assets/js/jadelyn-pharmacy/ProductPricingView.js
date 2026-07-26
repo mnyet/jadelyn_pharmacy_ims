@@ -1,18 +1,13 @@
+// Global Variables
+const select2Elements = '#modal_brand_id, #modal_generic_name_id, #modal_product_type_id';
+
 $(document).ready(function(){
     console.log('Product List View JS Loaded.');
 
     loadProductListDatatable();
 
-    /*
-    Swal.fire({
-        title: 'Welcome to the Product List!',
-        text: 'Here you can manage your products. Use the search bar to find specific items.',
-        icon: 'info',
-        confirmButtonText: 'Got it!'
-    }); */
-
     // Handling select2 (Adds searchbar in the select options)
-    $('#modal_brand_id, #modal_generic_name_id').select2({
+    $(select2Elements).select2({
         theme: "bootstrap-5",
         placeholder: "Select Type...",
         width: '100%',
@@ -36,11 +31,9 @@ $('#productSearchBar').on('keypress', function(e) {
 $('#btnAddProduct').click(function() {
     $('#productPriceForm')[0].reset();
 
-    $('#modal_brand_id').select2('val', '');
-    $('#modal_brand_id').trigger('change');
-    $('#modal_generic_name_id').select2('val', '');
-    $('#modal_generic_name_id').trigger('change');
-    $('#modal_brand_id, #modal_generic_name_id').prop('disabled', false); // Enable the select2 fields
+    $(select2Elements).select2('val', '');
+    $(select2Elements).trigger('change');
+    $(select2Elements).prop('disabled', false); // Enable the select2 fields
 
     $('#productPriceIdModal').val('');
     $('#productPriceModalLabel').text('Add New Product');
@@ -68,9 +61,10 @@ $('#productPriceTable').on('click', '.btn-edit', function() {
 
                 $('#modal_brand_id').select2('val', data.brand_id);
                 $('#modal_generic_name_id').select2('val', data.generic_name_id);
-                $('#modal_brand_id, #modal_generic_name_id').prop('disabled', true); // Disable the select2 fields
+                $(select2Elements).prop('disabled', true); // Disable the select2 fields
                 $('#modal_unit_price').val(data.unit_price);
                 $('#modal_selling_price').val(data.selling_price);
+                $('#modal_product_type_id').select2('val', data.product_type_id);
 
                 $('#productPriceModal').modal('show');
             } else {
@@ -138,6 +132,7 @@ function loadProductListDatatable() {
         columns: [
             { data: 'generic_name', name: 'generic_name' },
             { data: 'brand_name', name: 'brand_name' },
+            { data: 'product_type', name: 'product_type' },
             { data: 'unit_price', name: 'unit_price',
                 render: function(data, type, row) {
                     return `₱ ${parseFloat(data).toFixed(2)}`;
@@ -182,7 +177,8 @@ function saveProduct(actionType, productPriceId = null) {
                     brand_id: $('#modal_brand_id').val(),
                     generic_name_id: $('#modal_generic_name_id').val(),
                     unit_price: $('#modal_unit_price').val(),
-                    selling_price: $('#modal_selling_price').val()
+                    selling_price: $('#modal_selling_price').val(),
+                    product_type_id: $('#modal_product_type_id').val()
                 },
                 dataType: 'json'
             })
