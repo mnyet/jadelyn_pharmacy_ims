@@ -35,7 +35,7 @@ class ProductsModel extends BaseModel
 
             switch ($searchType) {
                 case \SearchTypes::BRAND_NAME:
-                    $builder->like('a.name', $searchValue);
+                    $builder->like('d.name', $searchValue);
                     break;
                 case \SearchTypes::PRODUCT_TYPE:
                     $builder->like('b.name', $searchValue);

@@ -149,8 +149,8 @@ function loadProductListDatatable() {
             topEnd: null
         },
         columns: [
-            { data: 'generic_name', name: 'generic_name' },
             { data: 'brand_name', name: 'brand_name' },
+            { data: 'generic_name', name: 'generic_name' },
             { data: 'product_type', name: 'product_type' },
             { data: 'purchase_date', name: 'purchase_date' },
             { data: 'expiry_date', name: 'expiry_date' },
