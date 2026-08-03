@@ -5,6 +5,38 @@ namespace App\Models;
 class CommonModel extends BaseModel
 {
     protected $table = 'jadelyn_pharmacy_generic_name'; // Default table
+
+    public function getDashboardData()
+    {
+        $totalInventory = $this->db->table('jadelyn_pharmacy_product_list')
+            ->where('active', 1)
+            ->countAllResults();
+
+        $totalProducts = $this->db->table('jadelyn_pharmacy_product_price_list')
+            ->where('active', 1)
+            ->countAllResults();
+
+        $lowStockItems = $this->db->table('jadelyn_pharmacy_product_list')
+            ->where('active', 1)
+            ->where('quantity <', 50)
+            ->countAllResults();
+
+        $totalBrands = $this->db->table('jadelyn_pharmacy_brand_name')
+            ->where('active', 1)
+            ->countAllResults();
+
+        $totalGenericProducts = $this->db->table('jadelyn_pharmacy_generic_name')
+            ->where('active', 1)
+            ->countAllResults();
+
+        return [
+            'totalInventory'       => $totalInventory ?? 0,
+            'totalProducts'        => $totalProducts ?? 0,
+            'lowStockItems'        => $lowStockItems ?? 0,
+            'totalBrands'          => $totalBrands ?? 0,
+            'totalGenericProducts' => $totalGenericProducts ?? 0
+        ];
+    }
     
     public function getProductListItems()
     {
