@@ -1,11 +1,19 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\CommonModel;
 
 class Home extends BaseController
 {
+    public function __construct()
+    {
+        $this->commonModel = new CommonModel();
+    }
+
     public function index(): string
     {
-        return view('Homepage');
+        $dashboardData = $this->commonModel->getDashboardData();
+
+        return view('Homepage', $dashboardData);
     }
 }
