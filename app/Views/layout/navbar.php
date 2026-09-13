@@ -12,6 +12,11 @@
             <ul class="navbar-nav ms-auto gap-2">
                 <?php if (session()->get('isLoggedIn')):?>
                     <li class="nav-item">
+                        <a class="btn btn-outline-success text-white border-0" href="/sales">
+                            Sales
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="btn btn-outline-primary text-white border-0" href="/product-list">
                             Product List (Inventory)
                         </a>

@@ -83,7 +83,7 @@ $('#productListTable').on('click', '.btn-edit', function() {
                 $('#modal_generic_name_id').select2('val', data.generic_name_id);
                 $('#modal_expiry_date').val(data.expiry_date);
                 $('#modal_purchase_date').val(data.purchase_date);
-                $('#modal_quantity').val(data.quantity);
+                $('#modal_quantity').val(data.quantity).prop('disabled', true);
 
                 $('#productModal').modal('show');
             } else {
@@ -160,8 +160,7 @@ function loadProductListDatatable() {
                 data: 'product_id',
                 name: 'product_id',
                 render: function (data, type, row) {
-                    return `<button class="btn btn-sm btn-primary btn-edit" data-id="${data}">Edit</button>
-                            <button class="btn btn-sm btn-danger" onclick="deleteProduct(${data})">Delete</button>`; 
+                    return `<button class="btn btn-sm btn-danger" onclick="deleteProduct(${data})">Delete</button>`; 
                 }
             }
         ],

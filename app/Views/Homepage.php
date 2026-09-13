@@ -123,7 +123,7 @@
                         <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
                     </div>
                     <div class="card-body">
-                        <div class="d-flex gap-2 flex-wrap">
+                            <a href="#" class="btn btn-dark btn-sm"><i class="fas fa-shopping-cart me-1"></i> Open Shop/Sales</a>
                             <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus me-1"></i> Add Product</a>
                             <a href="#" class="btn btn-success btn-sm"><i class="fas fa-chart-bar me-1"></i> Generate Report</a>
                             <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-exclamation-circle me-1"></i> Check Stock</a>
