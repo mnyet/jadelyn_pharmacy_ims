@@ -15,7 +15,15 @@ class ProductsModel extends BaseModel
         
         $builder = $this->builder('jadelyn_pharmacy_product_list a');
 
-        $builder->select('a.id AS product_id,
+        if (!empty($params['salesDataFlag'])) {
+            $builder->select('a.id AS product_id,
+                            a.lot_number AS product_lot_number,
+                            CONCAT(d.name, " ", c.name) AS product_name,
+                            b.name AS product_type,
+                            a.quantity AS product_qty,
+                            e.selling_price AS product_price');
+        } else {
+            $builder->select('a.id AS product_id,
                             d.name AS brand_name,
                             b.name AS product_type,
                             c.name AS generic_name,
@@ -23,6 +31,8 @@ class ProductsModel extends BaseModel
                             a.expiry_date,
                             a.purchase_date,
                             a.quantity');
+        }
+
         $builder->join('jadelyn_pharmacy_product_types b', 'a.product_type_id = b.id', 'inner');
         $builder->join('jadelyn_pharmacy_generic_name c', 'a.generic_name_id = c.id', 'inner');
         $builder->join('jadelyn_pharmacy_brand_name d', 'a.brand_id = d.id', 'inner');
@@ -50,6 +60,15 @@ class ProductsModel extends BaseModel
                     // Handle invalid search type if necessary
                     break;
             }
+        } else if (!empty($params['salesSearchValue'])) {
+            $salesSearchValue = $params['salesSearchValue'];
+
+            $builder->groupStart();
+            $builder->like('d.name', $salesSearchValue);
+            $builder->orLike('b.name', $salesSearchValue);
+            $builder->orLike('c.name', $salesSearchValue);
+            $builder->orLike('a.lot_number', $salesSearchValue);
+            $builder->groupEnd();
         }
         
         $builder->where('a.active', 1); // Only show active products
@@ -164,7 +183,7 @@ class ProductsModel extends BaseModel
             'brand_id'        => $params['brand_id'],
             'product_type_id' => $params['product_type_id'],
             'generic_name_id' => $params['generic_name_id'],
-            'quantity'        => $params['quantity'],
+            // 'quantity'        => $params['quantity'],
             'lot_number'      => $params['lot_number'],
             'expiry_date'     => $params['expiry_date'],
             'purchase_date'   => $params['purchase_date'],

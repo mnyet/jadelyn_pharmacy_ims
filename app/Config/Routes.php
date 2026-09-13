@@ -38,3 +38,9 @@ $routes->post('management/add-entry', 'ManagementController::addEntry');
 $routes->post('management/edit-entry', 'ManagementController::editEntry');
 $routes->post('management/delete-entry', 'ManagementController::deleteEntry');
 $routes->post('management/get-management-details', 'ManagementController::getManagementDetails');
+
+// Sales Routes
+$routes->get('/sales', 'SalesController::index');
+$routes->post('sales/get-product-list', 'SalesController::getProductList');
+$routes->post('sales/process-transaction', 'SalesController::processTransaction');
+$routes->post('sales/get-transaction-list', 'SalesController::getTransactionList');
