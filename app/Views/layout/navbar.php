@@ -17,19 +17,26 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-primary text-white border-0" href="/product-list">
-                            Product List (Inventory)
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-primary text-white border-0" href="/product-pricing">
-                            Product Pricing
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="btn btn-outline-success text-white border-0" href="/transaction-list">
                             Transactions
                         </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="btn btn-outline-primary text-white border-0 dropdown-toggle" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark shadow" aria-labelledby="productsDropdown">
+                            <li>
+                                <a class="dropdown-item" href="/product-list">
+                                    Product List (Inventory)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/product-pricing">
+                                    Product Pricing
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="btn btn-outline-info text-white border-0 dropdown-toggle" href="#" id="mgmtDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,6 +46,10 @@
                             <li><a class="dropdown-item" href="/management/<?= ManagementTypes::GENERIC_NAME ?>">Generic Names</a></li>
                             <li><a class="dropdown-item" href="/management/<?= ManagementTypes::BRANDS ?>">Brands</a></li>
                             <li><a class="dropdown-item" href="/management/<?= ManagementTypes::PRODUCT_TYPE ?>">Product Types</a></li>
+
+
+                            <li><hr class="dropdown-divider border-light opacity-50"></li>
+                            <li><a class="dropdown-item" href="/reports/">Reports</a></li>
                             
                             <?php if (session()->get('userRoleId') == UserRoles::ADMIN): ?>
                                 <li><hr class="dropdown-divider border-light opacity-50"></li>

@@ -30,6 +30,9 @@ $routes->post('products/delete-product-price', 'ProductController::deleteProduct
 
 // Transaction Routes
 $routes->get('/transaction-list', 'TransactionController::index');
+$routes->post('transactions/get-transaction-list', 'TransactionController::getTransactionList');
+$routes->post('transactions/get-transaction-details', 'TransactionController::getTransactionDetails');
+$routes->post('transactions/get-transaction-items', 'TransactionController::getTransactionItems');
 
 // Management Routes
 $routes->get('/management/(:any)', 'ManagementController::managementList/$1');
@@ -44,3 +47,7 @@ $routes->get('/sales', 'SalesController::index');
 $routes->post('sales/get-product-list', 'SalesController::getProductList');
 $routes->post('sales/process-transaction', 'SalesController::processTransaction');
 $routes->post('sales/get-transaction-list', 'SalesController::getTransactionList');
+
+// Reports Routes
+$routes->get('/reports', 'ReportsController::index');
+$routes->post('reports/process-report', 'ReportsController::processReport');

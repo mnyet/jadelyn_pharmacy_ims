@@ -142,7 +142,7 @@ function loadProductListDatatable() {
                                 data-price="${row.product_price}"
                                 data-name="${row.product_name}"
                             >
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-plus"></i> Add
                             </button>`; 
                 }
             }

@@ -59,6 +59,7 @@
                                     <?php if(!empty($productCombinations)): ?>
                                         <?php foreach ($productCombinations as $productCombination): ?>
                                             <option
+                                                value= <?= $productCombination->product_price_id ?>
                                                 data-generic-name-id="<?= $productCombination->generic_name_id ?>"
                                                 data-brand-id="<?= $productCombination->brand_id ?>"
                                                 data-product-type-id="<?= $productCombination->product_type_id ?>"
