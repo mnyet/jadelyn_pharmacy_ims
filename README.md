@@ -12,9 +12,9 @@ This system helps us track medicines, process sales, manage prescriptions, and g
 - [x] Role Based Access/Management
 - [x] Inventory Management
 - [x] Management Page (For Generic Names, Brand Names, and Product Types)
-- [ ] Point of Sale
-- [ ] Inventory Reports
-- [ ] Sales Reports
+- [x] Point of Sale
+- [x] Inventory Reports
+- [x] Sales Reports
 
 ## 🛠️ Tech Used
 - This project was made under Codeigniter 4 and is currently utilizing DDEV.
