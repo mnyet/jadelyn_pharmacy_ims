@@ -16,10 +16,9 @@ class CommonModel extends BaseModel
             ->where('active', 1)
             ->countAllResults();
 
-        $lowStockItems = $this->db->table('jadelyn_pharmacy_product_list')
-            ->where('active', 1)
-            ->where('quantity <', 50)
-            ->countAllResults();
+        $lowStockItems = $lowStockItems = $this->db->table('vw_jadelyn_low_stock_report')
+            ->get()
+            ->getNumRows();
 
         $totalBrands = $this->db->table('jadelyn_pharmacy_brand_name')
             ->where('active', 1)

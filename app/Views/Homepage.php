@@ -56,7 +56,7 @@
                                 <i class="fas fa-exclamation-triangle fs-4 text-dark"></i>
                             </div>
                         </div>
-                        <a href="/product-list" class="text-dark text-decoration-none small opacity-75">View All →</a>
+                        <a href="#" onclick="loadLowStockModalView()" class="text-dark text-decoration-none small opacity-75">View All →</a>
                     </div>
                 </div>
             </div>
@@ -123,14 +123,53 @@
                         <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
                     </div>
                     <div class="card-body">
-                            <a href="#" class="btn btn-dark btn-sm"><i class="fas fa-shopping-cart me-1"></i> Open Shop/Sales</a>
-                            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-plus me-1"></i> Add Product</a>
-                            <a href="#" class="btn btn-success btn-sm"><i class="fas fa-chart-bar me-1"></i> Generate Report</a>
-                            <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-exclamation-circle me-1"></i> Check Stock</a>
+                            <a href="/sales" class="btn btn-dark btn-sm"><i class="fas fa-shopping-cart me-1"></i> Open Shop/Sales</a>
+                            <a href="/product-pricing" class="btn btn-primary btn-sm"><i class="fas fa-plus me-1"></i> Add Product</a>
+                            <a href="/reports" class="btn btn-success btn-sm"><i class="fas fa-chart-bar me-1"></i> Generate Report</a>
+                            <a href="/product-list" class="btn btn-warning btn-sm"><i class="fas fa-exclamation-circle me-1"></i> Check Stock</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Low Stock Modal -->
+    <div class="modal fade" id="lowStockModal" tabindex="-1" aria-labelledby="lowStockModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width: 80%;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="lowStockModalLabel">
+                        <i class="fas fa-exclamation-triangle text-warning me-2"></i>Low Stock Products
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small mb-3">
+                        Products with total stock below <strong>300 units</strong>, grouped by generic name and product type.
+                    </p>
+
+                    <div class="table-responsive">
+                        <table id="lowStockTable" class="table table-sm table-bordered table-hover" style="width: 100%;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Generic Name</th>
+                                    <th>Product Type</th>
+                                    <th>Total Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="<?= base_url('assets/js/jadelyn-pharmacy/Homepage.js') ?>"></script>
 <?= $this->endSection() ?>

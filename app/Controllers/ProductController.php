@@ -109,4 +109,10 @@ class ProductController extends BaseController
 
         return $this->response->setJSON($this->productsModel->deleteProductPrice($params));
     }
+
+    public function getLowStockDatatable() {
+        $params = $this->request->getPost();
+
+        return $this->productsModel->getLowStockDatatable($params);
+    }
 }

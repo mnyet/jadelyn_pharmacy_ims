@@ -455,4 +455,10 @@ class ProductsModel extends BaseModel
             ];
         }
     }
+
+    public function getLowStockDatatable($params) {
+        $builder = $this->builder('vw_jadelyn_low_stock_report');
+        
+        return DataTable::of($builder)->toJson(true);
+    }
 }

@@ -27,6 +27,7 @@ $routes->post('products/get-product-price-details', 'ProductController::getProdu
 $routes->post('products/add-product-price', 'ProductController::addProductPrice');
 $routes->post('products/edit-product-price', 'ProductController::editProductPrice');
 $routes->post('products/delete-product-price', 'ProductController::deleteProductPrice');
+$routes->post('products/get-low-stock-datatable', 'ProductController::getLowStockDatatable');
 
 // Transaction Routes
 $routes->get('/transaction-list', 'TransactionController::index');
