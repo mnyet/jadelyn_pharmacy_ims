@@ -37,6 +37,31 @@ class CommonModel extends BaseModel
             'totalGenericProducts' => $totalGenericProducts ?? 0
         ];
     }
+
+    public function getReportListItems()
+    {
+        $reportList = $this->db->table('jadelyn_pharmacy_reports')
+            ->select('id, report_name, report_view_name, report_type_id, is_periodic')
+            ->where('active', 1)
+            ->get()
+            ->getResult();
+
+        $productReports = [];
+        $salesReports   = [];
+
+        foreach ($reportList as $report) {
+            if ($report->report_type_id == 1) { // Report Type 1: Product Reports
+                $productReports[] = $report;
+            } elseif ($report->report_type_id == 2) { // Report Type 2: Sales Reports
+                $salesReports[] = $report;
+            }
+        }
+        
+        return [
+            'productReports' => $productReports,
+            'salesReports' => $salesReports,
+        ];
+    }
     
     public function getProductListItems()
     {
@@ -79,6 +104,7 @@ class CommonModel extends BaseModel
     {
         return $this->db->table('jadelyn_pharmacy_product_price_list a')
             ->select("CONCAT(b.name, ' - ', c.name, ' (', d.name, ')') AS product_name,
+                     a.id AS product_price_id,
                      a.generic_name_id,
                      a.brand_id,
                      a.product_type_id")

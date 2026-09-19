@@ -190,13 +190,11 @@ function saveProduct(actionType, productId = null) {
                 type: 'POST',
                 data: {
                     id: productId,
-                    brand_id: $('#modal_brand_id').val(),
                     lot_number: $('#modal_lot_number').val(),
                     expiry_date: $('#modal_expiry_date').val(),
                     purchase_date: $('#modal_purchase_date').val(),
-                    generic_name_id: $('#modal_generic_name_id').val(),
-                    product_type_id: $('#modal_product_type_id').val(),
-                    quantity: $('#modal_quantity').val()
+                    quantity: $('#modal_quantity').val(),
+                    product_price_id: $('#modal_search_product_combination').val(),
                 },
                 dataType: 'json'
             })

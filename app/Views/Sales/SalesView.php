@@ -5,7 +5,7 @@
         <div class="row g-4">
             <!-- LEFT COLUMN: Product List -->
             <div class="col-lg-8">
-                <div class="px-5">
+                <div class="ps-5">
                     <!-- Sales Header -->
                     <div class="d-flex align-items-center mb-4">
                         <i class="fas fa-cash-register fs-4 me-3"></i>
@@ -60,7 +60,7 @@
 
             <!-- RIGHT COLUMN: Shopping Cart + Recent Transactions -->
             <div class="col-lg-4">
-                <div class="px-5">
+                <div class="pe-5">
                     <!-- Shopping Cart Card -->
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-body p-4">

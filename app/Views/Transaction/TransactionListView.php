@@ -5,113 +5,107 @@
         <h1>Transaction List</h1>
         <div class="container mt-5">
             <div class="input-group mb-3" style="width: 100%;">
-                <select class="form-select" id="searchBy" style="max-width: 170px;">
-                    <option value="<?= SearchTypes::PRODUCT_NAME ?>">Product Name</option>
-                    <option value="<?= SearchTypes::CATEGORY ?>">Category</option>
-                    <option value="<?= SearchTypes::BRAND ?>">Brand</option>
-                    <option value="<?= SearchTypes::LOT_NUMBER ?>">Lot Number</option>
-                </select>
-
-                <input type="text" id="productSearchBar" class="form-control" placeholder="Search products...">
+                <input type="text" id="transactionSearchBar" class="form-control" placeholder="Search by Transaction Number...">
                 
                 <button class="btn btn-primary" type="button" id="btnSearch">
                     <i class="fas fa-search"></i> Search
                 </button>
-                <button class="btn btn-success" id="btnAddProduct">
-                    <i class="fas fa-plus"></i> Add New Product
-                </button>
             </div>
-            <table id="productListTable" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Purchase Date</th>
-                        <th>Lot Number</th>
-                        <th>Expiry Date</th>
-                        <th>Product Name</th>
-                        <th>Brand</th>
-                        <th>Product Type</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="transactionListTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Transaction Number</th>
+                            <th>Purchase Date</th>
+                            <th>Total Amount</th>
+                            <th>Employee</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <!-- Transaction Detail Modal -->
+    <div class="modal fade" id="transactionDetailModal" tabindex="-1" aria-labelledby="transactionDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="productModalLabel">Add New Product</h5>
+                    <h5 class="modal-title" id="transactionDetailModalLabel">
+                        <i class="fas fa-receipt me-2"></i>Transaction Details
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="productForm">
-                    <div class="modal-body">
-                        <input type="hidden" id="productIdModal" name="id">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Product Name</label>
-                                <input type="text" class="form-control" name="name" id="modal_product_name" required>
+                <div class="modal-body" id="transactionDetailBody">
+
+                    <!-- Transaction Meta Cards -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="border rounded p-3 h-100">
+                                <small class="text-muted d-block mb-1">Transaction Number</small>
+                                <strong class="fs-5" id="tdTransactionCode">—</strong>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Lot Number</label>
-                                <input type="text" class="form-control" name="lot_number" id="modal_lot_number" required>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="border rounded p-3 h-100">
+                                <small class="text-muted d-block mb-1">Date & Time</small>
+                                <strong id="tdTransactionDate">—</strong>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Brand</label>
-                                <select class="form-select" name="brand_id" id="modal_brand_id" required>
-                                    <option value="" selected disabled>Select Brand...</option>
-                                    <?php if(!empty($brands)): ?>
-                                        <?php foreach ($brands as $brand): ?>
-                                            <option value="<?= $brand->id ?>"><?= $brand->name ?></option>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="border rounded p-3 h-100">
+                                <small class="text-muted d-block mb-1">Cashier</small>
+                                <strong id="tdCashier">—</strong>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Product Type</label>
-                                <select class="form-select" name="product_type_id" id="modal_product_type_id" required>
-                                    <option value="" selected disabled>Select Type...</option>
-                                    <?php if(!empty($productTypes)): ?>
-                                        <?php foreach ($productTypes as $type): ?>
-                                            <option value="<?= $type->id ?>"><?= $type->name ?></option>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Price</label>
-                                <div class="input-group">
-                                    <span class="input-group-text">₱</span>
-                                    <input type="text" 
-                                        class="form-control" 
-                                        name="price" 
-                                        id="modal_price" 
-                                        step="0.01" 
-                                        min="0.00"
-                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                        placeholder="0.00" 
-                                        required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Expiry Date</label>
-                                <input type="date" class="form-control" name="expiry_date" id="modal_expiry_date" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Purchase Date</label>
-                                <input type="date" class="form-control" name="purchase_date" id="modal_purchase_date" required>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="border rounded p-3 h-100">
+                                <small class="text-muted d-block mb-1">Items Sold</small>
+                                <strong id="tdItemCount">—</strong>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" id="btnSaveProduct">Save Product</button>
+
+                    <!-- Products DataTable -->
+                    <h6 class="mb-2">
+                        <i class="fas fa-boxes me-1"></i> Products
+                    </h6>
+                    <div class="table-responsive">
+                        <table id="transactionDetailTable" class="table table-sm table-bordered table-hover" style="width: 100%;">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Lot No.</th>
+                                    <th>Price</th>
+                                    <th>Qty</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
-                </form>
+
+                    <!-- Total -->
+                    <div class="d-flex justify-content-end mt-3">
+                        <div class="border rounded p-3" style="min-width: 220px;">
+                            <div class="d-flex justify-content-between">
+                                <span class="text-muted">Total:</span>
+                                <strong class="fs-4 text-success" id="tdTotal">₱0.00</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i> Close
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="<?= base_url('assets/js/jadelyn-pharmacy/ProductListView.js') ?>"></script>
+    <script src="<?= base_url('assets/js/jadelyn-pharmacy/TransactionListView.js') ?>"></script>
 <?= $this->endSection() ?>

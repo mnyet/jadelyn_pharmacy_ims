@@ -60,7 +60,7 @@ class SalesModel extends BaseModel
             $productIds = array_column($params['cartData'], 'product_id');
 
             $products = $this->db->table('jadelyn_pharmacy_product_list')
-                ->select('id, name, quantity')
+                ->select('id, quantity')
                 ->whereIn('id', $productIds)
                 ->get()
                 ->getResultArray();

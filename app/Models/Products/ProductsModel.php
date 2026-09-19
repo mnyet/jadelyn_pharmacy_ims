@@ -33,10 +33,11 @@ class ProductsModel extends BaseModel
                             a.quantity');
         }
 
-        $builder->join('jadelyn_pharmacy_product_types b', 'a.product_type_id = b.id', 'inner');
-        $builder->join('jadelyn_pharmacy_generic_name c', 'a.generic_name_id = c.id', 'inner');
-        $builder->join('jadelyn_pharmacy_brand_name d', 'a.brand_id = d.id', 'inner');
-        $builder->join('jadelyn_pharmacy_product_price_list e', 'a.brand_id = e.brand_id AND a.generic_name_id = e.generic_name_id', 'inner');
+
+        $builder->join('jadelyn_pharmacy_product_price_list e', 'a.product_price_id = e.id', 'inner');
+        $builder->join('jadelyn_pharmacy_product_types b', 'e.product_type_id = b.id', 'inner');
+        $builder->join('jadelyn_pharmacy_generic_name c', 'e.generic_name_id = c.id', 'inner');
+        $builder->join('jadelyn_pharmacy_brand_name d', 'e.brand_id = d.id', 'inner');
         $builder->orderBy($orderColumnName, $orderDirection);
 
         if (!empty($params['searchType'])) {
@@ -122,9 +123,7 @@ class ProductsModel extends BaseModel
         // Check if there is already a pricing on the product before entering to the product list.
         $checkBuilder = $this->builder('jadelyn_pharmacy_product_price_list');
         $checkBuilder->select('1');
-        $checkBuilder->where('brand_id', $params['brand_id']);
-        $checkBuilder->where('generic_name_id', $params['generic_name_id']);
-        $checkBuilder->where('product_type_id', $params['product_type_id']);
+        $checkBuilder->where('id', $params['product_price_id']);
         $checkBuilder->where('active', 1);
         
         $exists = $checkBuilder->get()->getRow();
@@ -140,9 +139,7 @@ class ProductsModel extends BaseModel
         $builder = $this->builder('jadelyn_pharmacy_product_list');
 
         $builder->insert([
-            'brand_id'        => $params['brand_id'],
-            'product_type_id' => $params['product_type_id'],
-            'generic_name_id' => $params['generic_name_id'],
+            'product_price_id'=> $params['product_price_id'],
             'quantity'        => $params['quantity'],
             'lot_number'      => $params['lot_number'],
             'expiry_date'     => $params['expiry_date'],
@@ -180,10 +177,6 @@ class ProductsModel extends BaseModel
         $builder = $this->builder('jadelyn_pharmacy_product_list');
         $builder->where('id', $productId);
         $builder->update([
-            'brand_id'        => $params['brand_id'],
-            'product_type_id' => $params['product_type_id'],
-            'generic_name_id' => $params['generic_name_id'],
-            // 'quantity'        => $params['quantity'],
             'lot_number'      => $params['lot_number'],
             'expiry_date'     => $params['expiry_date'],
             'purchase_date'   => $params['purchase_date'],
