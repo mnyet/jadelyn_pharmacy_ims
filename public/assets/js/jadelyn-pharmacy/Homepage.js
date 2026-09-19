@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    console.log('Low Stock Modal View Loaded.');
+    console.log('Homepage JS Loaded.');
 });
 
 function loadLowStockModalView() {
